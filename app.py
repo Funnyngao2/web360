@@ -24,11 +24,12 @@ app = Flask(__name__)
 # Cấu hình CORS đơn giản - chỉ để tại một nơi duy nhất
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-# Kiểm tra môi trường Render
+# Kiểm tra nếu đang chạy trên cloud platform
 is_render = os.environ.get("RENDER") or "render" in os.environ.get("RENDER_SERVICE_ID", "") or "render" in os.environ.get("RENDER_INSTANCE_ID", "")
+is_cloud = os.environ.get("RAILWAY_ENVIRONMENT") or is_render
 
 # Configure folders based on environment
-if os.environ.get("RAILWAY_ENVIRONMENT") or is_render:
+if is_cloud:
     # Thư mục gốc trên Render
     project_root = os.path.dirname(os.path.abspath(__file__))
     
@@ -61,8 +62,13 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
 # Constants moved from toolfunny.py
-CUBE_SIZE = 1920
-MAX_WORKERS = min(cpu_count(), 8)  # Limit workers to prevent memory overload
+CUBE_SIZE = 1024  # Giảm kích thước mặc định xuống 1024 (thay vì 1920) để tiết kiệm bộ nhớ
+
+# Giới hạn số lượng worker dựa trên môi trường
+if is_cloud:
+    MAX_WORKERS = 2  # Giảm xuống 2 worker trên môi trường cloud
+else:
+    MAX_WORKERS = min(cpu_count(), 8)  # Sử dụng tối đa 8 worker trong môi trường local
 
 # Image processing functions from toolfunny.py
 face_params = {
@@ -197,48 +203,80 @@ def create_thumbnail_fast(face_img, output_folder, size=(360, 360)):
 
 def convert_spherical_to_cube_optimized(input_path, output_folder, size=CUBE_SIZE):
     """
-    Optimized version with multiprocessing for cube faces
+    Optimized version with improved error handling and resource management
     """
-    pano_img = cv2.imread(input_path)
-    if pano_img is None:
-        print(f"❌ Cannot read image {input_path}")
+    try:
+        print(f"Starting processing of {input_path}")
+        pano_img = cv2.imread(input_path)
+        if pano_img is None:
+            print(f"❌ Cannot read image {input_path}")
+            return False
+
+        # Resize to smaller dimensions on cloud
+        h, w = pano_img.shape[:2]
+        print(f"Original image size: {w}x{h}")
+        
+        # Always resize on cloud to save memory
+        if is_cloud or w > 4096 or h > 2048:
+            target_width = 4096
+            target_height = 2048
+            print(f"Resizing to {target_width}x{target_height} to save memory")
+            pano_img = resize_panorama_fast(pano_img, target_width, target_height)
+
+        # Rotate panorama 180 degrees
+        pano_img = cv2.rotate(pano_img, cv2.ROTATE_180)
+
+        os.makedirs(output_folder, exist_ok=True)
+
+        # Process faces sequentially on cloud instead of using multiprocessing
+        if is_cloud:
+            print("Processing cube faces sequentially (cloud mode)")
+            faces_images = {}
+            for face in face_params.keys():
+                try:
+                    print(f"Processing face: {face}")
+                    face_img = create_cube_face_optimized(pano_img, face, size)
+                    face_img = correct_rotation(face, face_img)
+                    out_file = os.path.join(output_folder, f"{face}.jpg")
+                    cv2.imwrite(out_file, face_img, [cv2.IMWRITE_JPEG_QUALITY, 90])
+                    faces_images[face] = face_img
+                    print(f"✅ Saved face {face}")
+                except Exception as e:
+                    print(f"❌ Error processing face {face}: {str(e)}")
+        else:
+            # Use multiprocessing on local environment
+            print("Processing cube faces with multiprocessing")
+            with ProcessPoolExecutor(max_workers=min(6, MAX_WORKERS)) as executor:
+                face_args = [(pano_img, face, size) for face in face_params.keys()]
+                results = list(executor.map(create_cube_face_batch, face_args))
+
+            faces_images = {}
+            
+            # Save face images
+            for face, face_img in results:
+                face_img = correct_rotation(face, face_img)
+                out_file = os.path.join(output_folder, f"{face}.jpg")
+                
+                # Use threading to save files
+                def save_image(path, img):
+                    cv2.imwrite(path, img, [cv2.IMWRITE_JPEG_QUALITY, 100])
+                
+                threading.Thread(target=save_image, args=(out_file, face_img)).start()
+                faces_images[face] = face_img
+
+        # Create preview and thumbnail
+        print("Creating preview image")
+        create_preview_image_fast(faces_images, output_folder)
+        print("Creating thumbnail")
+        create_thumbnail_fast(faces_images['pano_f'], output_folder)
+        
+        print(f"✅ Successfully processed {input_path}")
+        return True
+    except Exception as e:
+        print(f"❌ Error in convert_spherical_to_cube_optimized: {str(e)}")
+        import traceback
+        traceback.print_exc()
         return False
-
-    # Keep original resolution for best quality
-    # Only resize if the image is too large and could cause memory errors
-    h, w = pano_img.shape[:2]
-    if w > 8192 or h > 4096:
-        pano_img = resize_panorama_fast(pano_img, 6144, 3072)
-    
-    # Rotate panorama 180 degrees
-    pano_img = cv2.rotate(pano_img, cv2.ROTATE_180)
-
-    os.makedirs(output_folder, exist_ok=True)
-
-    # Use multiprocessing to create cube faces
-    with ProcessPoolExecutor(max_workers=min(6, MAX_WORKERS)) as executor:
-        face_args = [(pano_img, face, size) for face in face_params.keys()]
-        results = list(executor.map(create_cube_face_batch, face_args))
-
-    faces_images = {}
-    
-    # Save face images
-    for face, face_img in results:
-        face_img = correct_rotation(face, face_img)
-        out_file = os.path.join(output_folder, f"{face}.jpg")
-        
-        # Use threading to save files
-        def save_image(path, img):
-            cv2.imwrite(path, img, [cv2.IMWRITE_JPEG_QUALITY, 100])
-        
-        threading.Thread(target=save_image, args=(out_file, face_img)).start()
-        faces_images[face] = face_img
-
-    # Create preview and thumbnail
-    create_preview_image_fast(faces_images, output_folder)
-    create_thumbnail_fast(faces_images['pano_f'], output_folder)
-
-    return True
 
 def create_krpano_xml(processed_images, output_folder, title="funny vtour"):
     """
@@ -361,11 +399,15 @@ def process_images():
     Endpoint to process uploaded panorama images
     """
     try:
+        # Ghi log bắt đầu xử lý
+        print("==== Starting image processing request ====")
+        
         if 'files[]' not in request.files:
             return jsonify({'error': 'No files uploaded'}), 400
 
         project_name = request.form.get('projectName', 'default_project')
         files = request.files.getlist('files[]')
+        print(f"Project name: {project_name}, File count: {len(files)}")
 
         if not files or len(files) == 0:
             return jsonify({'error': 'No files selected'}), 400
@@ -382,6 +424,7 @@ def process_images():
         os.makedirs(panosuser_folder, exist_ok=True)
 
         # Save uploaded files
+        print(f"Saving uploaded files to {project_upload_dir}")
         saved_files = []
         for file in files:
             if file.filename:
@@ -389,30 +432,45 @@ def process_images():
                 file_path = os.path.join(project_upload_dir, filename)
                 file.save(file_path)
                 saved_files.append(file_path)
+                print(f"Saved file: {filename}")
 
         if not saved_files:
             return jsonify({'error': 'Failed to save files'}), 500
 
-        # Process files using now local functions (not toolfunny)
+        # Process files - limit to 3 files at a time on cloud to avoid memory issues
         processed_images = []
-        for input_path in saved_files:
-            image_name = os.path.splitext(os.path.basename(input_path))[0]
-            
-            # Final output path - directly in panosuser folder
-            output_path = os.path.join(panosuser_folder, image_name)
-            
-            # Process image
-            success = convert_spherical_to_cube_optimized(input_path, output_path, CUBE_SIZE)
-            
-            if success:
-                processed_images.append({
-                    'name': image_name,
-                    'input_path': input_path,
-                    'output_path': output_path
-                })
+        max_files = 3 if is_cloud else len(saved_files)
+        
+        print(f"Processing {min(max_files, len(saved_files))} files at a time")
+        
+        for i, input_path in enumerate(saved_files[:max_files]):
+            try:
+                image_name = os.path.splitext(os.path.basename(input_path))[0]
+                print(f"Processing file {i+1}/{len(saved_files[:max_files])}: {image_name}")
+                
+                # Final output path - directly in panosuser folder
+                output_path = os.path.join(panosuser_folder, image_name)
+                
+                # Process image
+                success = convert_spherical_to_cube_optimized(input_path, output_path, CUBE_SIZE)
+                
+                if success:
+                    processed_images.append({
+                        'name': image_name,
+                        'input_path': input_path,
+                        'output_path': output_path
+                    })
+                    print(f"Successfully processed {image_name}")
+                else:
+                    print(f"Failed to process {image_name}")
+            except Exception as e:
+                print(f"Error processing file {input_path}: {str(e)}")
+                import traceback
+                traceback.print_exc()
 
         # Create XML and HTML if any images were processed successfully
         if processed_images:
+            print("Creating XML and HTML files")
             xml_path = create_krpano_xml(processed_images, project_output_dir, project_name)
             html_path = create_krpano_html(project_output_dir, f"Tools Krpano {project_name}")
             
@@ -432,6 +490,7 @@ def process_images():
             except Exception as e:
                 print(f"Could not delete uploads folder {project_upload_dir}: {str(e)}")
             
+            print("==== Completed image processing successfully ====")
             return jsonify({
                 'success': True,
                 'message': f'Successfully processed {len(processed_images)} images',
@@ -447,10 +506,14 @@ def process_images():
                 print(f"Deleted uploads folder: {project_upload_dir}")
             except Exception as e:
                 print(f"Could not delete uploads folder {project_upload_dir}: {str(e)}")
-                
+            
+            print("==== Failed to process any images ====")
             return jsonify({'error': 'No images were processed successfully'}), 500
 
     except Exception as e:
+        print(f"==== Critical error in process_images: {str(e)} ====")
+        import traceback
+        traceback.print_exc()
         return jsonify({'error': str(e)}), 500
 
 @app.route('/api/results/<path:project_name>', methods=['GET'])
