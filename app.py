@@ -639,7 +639,7 @@ def serve_output_fixed(filename):
             else:
                 # Thêm script tag cho funny.js
                 new_content = content.replace('</head>', 
-                    '<script src="/api/phanmengoc/Funny.js"></script>\n</head>')
+                    '<script src="/api/phanmengoc/funny.js"></script>\n</head>')
                 
                 # Trả về nội dung đã sửa
                 return new_content
