@@ -479,7 +479,22 @@ def serve_output(filename):
     """
     Serve output files
     """
-    return send_from_directory(OUTPUT_FOLDER, filename)
+    # Thử phục vụ từ thư mục output mới
+    if os.path.exists(os.path.join(OUTPUT_FOLDER, filename)):
+        return send_from_directory(OUTPUT_FOLDER, filename)
+    
+    # Nếu không tìm thấy, thử thư mục output cũ
+    old_output_folder = os.path.join(os.getcwd(), 'output')
+    if os.path.exists(os.path.join(old_output_folder, filename)):
+        return send_from_directory(old_output_folder, filename)
+        
+    # Thử thư mục Render cụ thể
+    render_output_folder = '/opt/render/project/src/output'
+    if os.path.exists(os.path.join(render_output_folder, filename)):
+        return send_from_directory(render_output_folder, filename)
+    
+    # Nếu không tìm thấy ở đâu cả
+    return jsonify({'error': 'File not found'}), 404
 
 @app.route('/api/phanmengoc/<path:filename>')
 def serve_phanmengoc(filename):
@@ -495,43 +510,68 @@ def get_projects():
     """
     try:
         projects = []
-        for project_name in os.listdir(OUTPUT_FOLDER):
-            project_dir = os.path.join(OUTPUT_FOLDER, project_name)
+        # Đường dẫn thư mục output mới và cũ
+        output_folders = [OUTPUT_FOLDER]
+        
+        # Thêm đường dẫn thư mục cũ nếu khác với thư mục mới và tồn tại
+        old_output_folder = os.path.join(os.getcwd(), 'output')
+        if old_output_folder != OUTPUT_FOLDER and os.path.exists(old_output_folder):
+            output_folders.append(old_output_folder)
             
-            # Chỉ xử lý thư mục
-            if not os.path.isdir(project_dir):
+        # Thêm đường dẫn thư mục trên Render
+        render_output_folder = '/opt/render/project/src/output'
+        if render_output_folder != OUTPUT_FOLDER and render_output_folder != old_output_folder and os.path.exists(render_output_folder):
+            output_folders.append(render_output_folder)
+            
+        print(f"Searching for projects in folders: {output_folders}")
+            
+        # Lấy danh sách dự án từ tất cả các thư mục output
+        for output_folder in output_folders:
+            if not os.path.exists(output_folder):
                 continue
                 
-            # Kiểm tra xem dự án có file HTML và XML không
-            html_path = os.path.join(project_dir, "Toolstour.html")
-            xml_path = os.path.join(project_dir, "user1.xml")
-            
-            if not (os.path.exists(html_path) and os.path.exists(xml_path)):
-                continue
+            for project_name in os.listdir(output_folder):
+                project_dir = os.path.join(output_folder, project_name)
                 
-            # Tìm thumbnail đầu tiên từ panosuser
-            panosuser_dir = os.path.join(project_dir, "panosuser")
-            thumbnail_url = None
-            
-            if os.path.exists(panosuser_dir):
-                # Lấy thư mục đầu tiên trong panosuser
-                scene_dirs = [d for d in os.listdir(panosuser_dir) if os.path.isdir(os.path.join(panosuser_dir, d))]
-                if scene_dirs:
-                    first_scene = scene_dirs[0]
-                    thumb_path = os.path.join(panosuser_dir, first_scene, "thumb.jpg")
+                # Chỉ xử lý thư mục
+                if not os.path.isdir(project_dir):
+                    continue
                     
-                    if os.path.exists(thumb_path):
-                        # Lấy đường dẫn tương đối với output folder
-                        rel_path = os.path.relpath(thumb_path, OUTPUT_FOLDER)
-                        thumbnail_url = f'/api/output/{rel_path}'
-            
-            # Thêm thông tin dự án
-            projects.append({
-                'name': project_name,
-                'html_url': f'/api/output/{project_name}/Toolstour.html',
-                'thumbnail_url': thumbnail_url,
-                'created_time': os.path.getctime(project_dir)
-            })
+                # Kiểm tra xem dự án có file HTML và XML không
+                html_path = os.path.join(project_dir, "Toolstour.html")
+                xml_path = os.path.join(project_dir, "user1.xml")
+                
+                if not (os.path.exists(html_path) and os.path.exists(xml_path)):
+                    continue
+                    
+                # Tìm thumbnail đầu tiên từ panosuser
+                panosuser_dir = os.path.join(project_dir, "panosuser")
+                thumbnail_url = None
+                
+                if os.path.exists(panosuser_dir):
+                    # Lấy thư mục đầu tiên trong panosuser
+                    scene_dirs = [d for d in os.listdir(panosuser_dir) if os.path.isdir(os.path.join(panosuser_dir, d))]
+                    if scene_dirs:
+                        first_scene = scene_dirs[0]
+                        thumb_path = os.path.join(panosuser_dir, first_scene, "thumb.jpg")
+                        
+                        if os.path.exists(thumb_path):
+                            # Lấy đường dẫn tương đối với thư mục output hiện tại
+                            # Sử dụng OUTPUT_FOLDER cho đường dẫn API trả về
+                            rel_path = os.path.relpath(thumb_path, project_dir)
+                            thumbnail_url = f'/api/output/{project_name}/{rel_path}'
+                            print(f"Found thumbnail for project {project_name}: {thumbnail_url}")
+                
+                # Đảm bảo không trùng lặp dự án
+                project_exists = any(p['name'] == project_name for p in projects)
+                if not project_exists:
+                    # Thêm thông tin dự án
+                    projects.append({
+                        'name': project_name,
+                        'html_url': f'/api/output/{project_name}/Toolstour.html',
+                        'thumbnail_url': thumbnail_url,
+                        'created_time': os.path.getctime(project_dir)
+                    })
         
         # Sắp xếp theo thời gian tạo, mới nhất trước
         projects.sort(key=lambda x: x['created_time'], reverse=True)
