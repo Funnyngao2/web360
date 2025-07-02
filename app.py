@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import os
 import sys
 import tempfile
@@ -21,7 +21,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+# Cấu hình CORS chi tiết hơn
+CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
 
 # Configure folders based on environment
 if os.environ.get("RAILWAY_ENVIRONMENT"):
@@ -343,6 +344,7 @@ def create_krpano_html(output_folder, title="Tools Krpano Funny"):
     return html_path
 
 @app.route('/api/process', methods=['POST'])
+@cross_origin()
 def process_images():
     """
     Endpoint to process uploaded panorama images
@@ -441,6 +443,7 @@ def process_images():
         return jsonify({'error': str(e)}), 500
 
 @app.route('/api/results/<path:project_name>', methods=['GET'])
+@cross_origin()
 def get_results(project_name):
     """
     Endpoint to get information about processed project
@@ -462,6 +465,7 @@ def get_results(project_name):
         return jsonify({'error': 'Project results not found'}), 404
 
 @app.route('/api/output/<path:filename>')
+@cross_origin()
 def serve_output(filename):
     """
     Serve output files
@@ -469,6 +473,7 @@ def serve_output(filename):
     return send_from_directory(OUTPUT_FOLDER, filename)
 
 @app.route('/api/phanmengoc/<path:filename>')
+@cross_origin()
 def serve_phanmengoc(filename):
     """
     Serve phanmengoc resources
@@ -476,6 +481,7 @@ def serve_phanmengoc(filename):
     return send_from_directory(PHANMENGOC_FOLDER, filename)
 
 @app.route('/api/projects', methods=['GET'])
+@cross_origin()
 def get_projects():
     """
     Lấy danh sách tất cả các dự án đã xử lý
@@ -536,6 +542,7 @@ def get_projects():
         return jsonify({'error': str(e)}), 500
 
 @app.route('/api/projects/<path:project_name>', methods=['DELETE'])
+@cross_origin()
 def delete_project(project_name):
     """
     Xóa một dự án
@@ -557,6 +564,7 @@ def delete_project(project_name):
         return jsonify({'error': f'Không thể xóa dự án: {str(e)}'}), 500
 
 @app.route('/api/projects/rename', methods=['POST'])
+@cross_origin()
 def rename_project():
     """
     Đổi tên dự án
@@ -600,6 +608,7 @@ def rename_project():
         return jsonify({'error': f'Không thể đổi tên dự án: {str(e)}'}), 500
 
 @app.route('/')
+@cross_origin()
 def index():
     """
     Simple health check endpoint
@@ -610,3 +619,19 @@ def index():
         'version': '1.0.0'
     })
 
+# Hàm trả về response với CORS headers
+def add_cors_headers(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    return response
+
+@app.after_request
+def after_request(response):
+    return add_cors_headers(response)
+
+# Options request handler
+@app.route('/api/<path:path>', methods=['OPTIONS'])
+@cross_origin()
+def options_handler(path):
+    return add_cors_headers(jsonify(success=True))
