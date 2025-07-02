@@ -336,7 +336,8 @@ def create_krpano_html(output_folder, title="Tools Krpano Funny"):
 <body>
 
 <script src="/api/phanmengoc/funny.js"></script>
-
+<h1>hello works</h1>
+<div>Hello</div>
 <div id="pano" style="width:100%;height:100%;">
 	<noscript><table style="width:100%;height:100%;"><tr style="vertical-align:middle;"><td><div style="text-align:center;">ERROR:<br/><br/>Javascript not activated<br/><br/></div></td></tr></table></noscript>
 	<script>
