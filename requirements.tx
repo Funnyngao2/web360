@@ -1,6 +1,1 @@
-flask
-flask-cors
-werkzeug
-opencv-python
-numpy
-gunicorn
+
