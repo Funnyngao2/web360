@@ -44,88 +44,12 @@ if is_cloud:
     print(f"Running on cloud platform. Current dir={os.getcwd()}")
     print(f"PHANMENGOC_FOLDER={PHANMENGOC_FOLDER}, exists={os.path.exists(PHANMENGOC_FOLDER)}")
     
-    # Đảm bảo thư mục phanmengoc tồn tại và có các file cần thiết
+    # Đảm bảo thư mục phanmengoc tồn tại
     if not os.path.exists(PHANMENGOC_FOLDER):
         print(f"phanmengoc folder not found at {PHANMENGOC_FOLDER}")
         # Tạo thư mục nếu không tồn tại
         os.makedirs(PHANMENGOC_FOLDER, exist_ok=True)
         print(f"Created empty phanmengoc folder at {PHANMENGOC_FOLDER}")
-        
-    # Tạo funny.js nếu không tồn tại
-    funny_js_path = os.path.join(PHANMENGOC_FOLDER, 'funny.js')
-    if not os.path.exists(funny_js_path):
-        print(f"Creating funny.js at {funny_js_path}")
-        with open(funny_js_path, 'w', encoding='utf-8') as f:
-            # Mã JavaScript cần thiết cho panorama viewer
-            f.write('''
-/*
-    krpano Embedding Script
-    krpano 1.20.9 (build 2020-02-11)
-*/
-function embedpano(e){function at(e){return(""+e).toLowerCase()}function ft(e,t){return e[d](t)>=0}function lt(){var e=navigator.platform;var t=navigator.userAgent;var n=at(e);var r=at(t);var i=0;var s=0;i=ft(r,"ipad")|ft(r,"iphone")|ft(r,"ipod")||ft(r,"ipad;")|ft(r,"iphone;")|ft(r,"ipod;")||ft(r,"android")|ft(n,"ipad")|ft(n,"iphone")|ft(n,"ipod")|ft(n,"android");s=i|ft(r,"mobile")|ft(r,"windows ce")||ft(e,"windows ce")||ft(r,"midp")||ft(r,"pocket")||ft(r,"pda")||ft(r,"avantgo")||ft(r,"xv6850")||ft(r,"xv6800")||ft(r,"xv6700")||ft(r,"xv6600")||ft(r,"xv6500")||ft(r,"xv5800")||ft(r,"xv5700")||ft(r,"xv5600")||ft(r,"xv5500")||ft(r,"xv5400")||ft(r,"xv5300")||ft(r,"xv5200")||ft(r,"xv5100")||ft(r,"xv4100")||ft(r,"xv3650")||ft(r,"xv3500")||ft(r,"xv3300")||ft(r,"xv3200")||ft(r,"xv3000")||ft(r,"xv2800")||ft(r,"xv2600")||ft(r,"xv2500")||ft(r,"xv2000")||ft(r,"xv1700")||ft(r,"xv1600")||ft(r,"xv1500")||ft(r,"xv1200")||ft(r,"xv1000")||ft(r,"xv700")||ft(r,"xv6")||ft(r,"xv4")||ft(r,"xv3")||ft(r,"xv")||ft(r,"asus-galaxy")||ft(r,"nokia")||ft(n,"smartphone")||ft(n,"android")||ft(n,"blackberry")||ft(n,"windows ce")||ft(n,"windows phone");return{isAndroid:ft(r,"android"),isIOS:ft(r,/iP(ad|hone|od)/i),isMobile:s,isPhone:s&&!ft(r,"tablet"),isTablet:s&&ft(r,"tablet"),isDesktop:!(s||i&&!ft(r,"tablet"))}}function ct(){var e=Lt.createElement("div");e.innerHTML="<div style='-webkit-tap-highlight-color:rgba(0,0,0,0);-ms-touch-action:none;touch-action:none;'></div>";var t=e.firstChild;if(t&&typeof t.style.touchAction!="undefined"){t.style.touchAction="none"}if(t&&typeof t.style.msTouchAction!="undefined"){t.style.msTouchAction="none"}}function ht(e){var t="knoyx-";if(e&&e.length>0){for(var n=0;n<e.length;n++){var r=e[n];if(typeof r==="string"){if(r.indexOf(t)==0){var i=r.slice(t.length);Gt.vars[i[0]]=i.slice(1)}}}}ht.instance=new ht}function pt(){var e=Lt.createElement("canvas");return!(!e.getContext||!e.getContext("2d"))}function dt(e){return typeof e!=="undefined"}function vt(e){if(dt(e))return e}function mt(){var e=navigator.pointerEnabled;var t=navigator.msPointerEnabled;var n=!1;var r=!1;var i=navigator.maxTouchPoints>1||navigator.msMaxTouchPoints>1;var s=e||t;var o=i;var u=navigator.appVersion;var a=at(navigator.userAgent);var f=navigator.platform;var l=at(f);var c=navigator.vendor;try{r=window.top&&window.top!=window.self}catch(h){r=true}n="MacIntel"==f&&navigator["userAgent"].indexOf("Safari")>=0&&navigator["userAgent"].indexOf("Mobile")>=0;var p=0;var d=0;var v="none";var m="none";var g="absolute";var y="none";var b="auto";var w="static";var E="center";var S="0";var x="0";var T="10px";var N="none";var C="none";var k="";var L="0px";var A="0px";var O="0px";var M="0px";var _=!r;var D=!r;var P=true;var H="fill";var B=true;var j=true;var F=false;var I=true;var q=false;var R=true;var U=!0;var z=at(navigator.userAgent);z=z.indexOf("mobile")>=0;if(z)z=z.indexOf("firefox")<0;if(z){v="rgba(0,0,0,0.4)";m="rgba(0,0,0,0.2)";if(!J.isAndroid&&!J.isIOS){v="rgba(0,0,0,0.8)";m="rgba(0,0,0,0.4)"}g="relative";p=144;y="100%";b="hidden";w="absolute";E="absolute";S="16px";x="16px";T="10px";N="none";C="none";k="4px";L="8px";A="8px";O="18px";M="18px";d=1;_=false;if(J.isIOS){q=true}if(J.isPhone&&!q){P=false}D=false;j=false;H="contain"}if(J.isDesktop){F=true}var W=J.isDesktop?40:24;var X=J.isDesktop?40:24;var V="24px";var $="24px";if(J.isIOS==false&&J.isAndroid==false&&J.isDesktop==false){U=!1}var K=z?"no-select":"auto";var G=z?"0px":"auto";return{bgcolor:"#000000",linear:J.isDesktop,roundedges:6,wmode:"opaque",localfocus:I,locallimit:P,localcursor:U,touchdevice:i,androidstock:false,useCSS3D:R,disablewheel:false,errorcorner:"tl",hotspot_day:"000000"+"*0.3"+"*1"+"*0.3"+"*Verdana"+"*10"+"*center"+"*"+K+"*none",hotspot_night:"000000"+"*0.3"+"*1"+"*0.3"+"*Verdana"+"*10"+"*center"+"*"+K+"*none",layout:{standard:{touch:"false",align:"center",x:0,y:0},fullscreen:{touch:"true",align:"center",x:0,y:0},androidstock:{touch:"true",align:"center",x:0,y:0},css3d:{touch:"false",align:"center",x:0,y:0},webvr:{touch:"true",align:"center",x:0,y:0},area:{touch:"false",align:"center",x:0,y:0}},control:{mousemode:"drag",dragrelative:F,dragfriction:.9,movetoaccelerate:1,movetospeed:10,movetofriction:.8,keycodesin:"83|40|34",keycodesout:"87|38|33",keycodesinforces:2,keycodesoutforces:2,rheightscale:0,tilttowalk:.5},image:{lamp_normal:"https://raw.githubusercontent.com/bbkincso/ff/master/panorama-json/krpano/loading-opaque.png",lamp_wait:"https://raw.githubusercontent.com/bbkincso/ff/master/panorama-json/krpano/loading-opaque.png"},plugin:{logo:{align:"leftbottom",alpha:.75,scale:1,url:"",vr:true},logokeep:{align:"lefttop",scale:1,url:"",visible:true,vr:false,keep:true},autorotation:{enabled:false,waittime:1.5,accel:1,speed:3,horizon:0,tofov:null,rotate:true},zoomtocursor:{autoenable:true,enabled:false,speed:6,zoomspeed:3},gyro:{enabled:true,vr:true},webvr:{mobilevr_support:R,mobilevr_fake_support:false,mouse_mode:"drag",zoom:true,zoompow:1.6,headtouch_scrollbutton:true,camroll:false,multireslock:true,sensorrate:50,mask:true,maxfov:120,bigscreenstyle:false},editor:{})},<script>
-var settings = {};
-settings.localpath = "false";
-function initServer(){
-    window.addEventListener("pageshow", enterframe, false);
-}
-var g_tilt;
-function enterframe(e){}
-
-var krpano = null;
-function registerkrpanointerface(){
-  krpano = document.getElementById("krpanoSWFObject");
-  if (krpano && krpano.interface) {
-   g_tilt = navigator.userAgent.toLowerCase().indexOf('iphone') >= 0 || navigator.userAgent.toLowerCase().indexOf('ipad') >= 0 || navigator.userAgent.toLowerCase().indexOf('ipod') >= 0;
-    if (localStorage.getItem('gyroOn') === 'false') {
-      krpano.set("plugin[gyro].enabled", false);
-      localStorage.setItem('gyroOn', 'false');
-    }
-  } else {
-    setTimeout("registerkrpanointerface()", 100);
-  }
-}
-            ''')
-        print(f"Created funny.js file")
-        
-    # Tạo thư mục skin nếu cần
-    skin_folder = os.path.join(PHANMENGOC_FOLDER, 'skin')
-    if not os.path.exists(skin_folder):
-        os.makedirs(skin_folder, exist_ok=True)
-        print(f"Created skin folder at {skin_folder}")
-        
-        # Tạo file vtourskin.xml cơ bản
-        vtourskin_path = os.path.join(skin_folder, 'vtourskin.xml')
-        with open(vtourskin_path, 'w', encoding='utf-8') as f:
-            f.write('<krpano><style name="skin_base" /></krpano>')
-        
-        # Tạo file vtourskin_design_flat_light.xml cơ bản
-        design_path = os.path.join(skin_folder, 'vtourskin_design_flat_light.xml')
-        with open(design_path, 'w', encoding='utf-8') as f:
-            f.write('<krpano><style name="skin_design" /></krpano>')
-
-    # Tạo thư mục plugins nếu cần
-    plugins_folder = os.path.join(PHANMENGOC_FOLDER, 'plugins')
-    if not os.path.exists(plugins_folder):
-        os.makedirs(plugins_folder, exist_ok=True)
-        print(f"Created plugins folder at {plugins_folder}")
-        
-        # Tạo webvr.js tối thiểu trong thư mục plugins
-        webvr_js_path = os.path.join(plugins_folder, 'webvr.js')
-        with open(webvr_js_path, 'w', encoding='utf-8') as f:
-            f.write('''
-/*
-    WebVR plugin for krpano
-*/
-var krpanoplugin = function() {
-    // Plugin code
-    console.log("WebVR plugin loaded");
-};
-            ''')
-            
-        # Tạo webvr.xml tối thiểu trong thư mục plugins
-        webvr_xml_path = os.path.join(plugins_folder, 'webvr.xml')
-        with open(webvr_xml_path, 'w', encoding='utf-8') as f:
-            f.write('<krpano><plugin name="webvr" /></krpano>')
 else:
     # Local development
     UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
@@ -614,82 +538,33 @@ def get_results(project_name):
         return jsonify({'error': 'Project results not found'}), 404
 
 @app.route('/api/output/<path:filename>')
-def serve_output_fixed(filename):
-    # Đường dẫn đến file trong thư mục output
-    file_path = os.path.join(OUTPUT_FOLDER, filename)
-    
-    # Nếu là file HTML, kiểm tra và sửa đổi nếu cần
-    if filename.lower().endswith('.html'):
-        print(f"Serving HTML file: {file_path}")
-        
-        try:
-            # Kiểm tra xem file có tồn tại không
-            if not os.path.exists(file_path):
-                print(f"File not found: {file_path}")
-                return f"File not found: {filename}", 404
-            
-            # Đọc nội dung file HTML
-            with open(file_path, 'r', encoding='utf-8') as f:
-                content = f.read()
-            
-            # Kiểm tra xem file HTML có script tag cho funny.js không
-            if 'funny.js' in content.lower() or 'Funny.js' in content:
-                # Đã có script tag, trả về nội dung gốc
-                return content
-            else:
-                # Thêm script tag cho funny.js
-                new_content = content.replace('</head>', 
-                    '<script src="/api/phanmengoc/funny.js"></script>\n</head>')
-                
-                # Trả về nội dung đã sửa
-                return new_content
-                
-        except Exception as e:
-            print(f"Error serving fixed HTML: {str(e)}")
-            return str(e), 500
-    
-    # Nếu không phải file HTML, phục vụ như thông thường
-    try:
+def serve_output(filename):
+    """
+    Serve output files
+    """
+    # Thử phục vụ từ thư mục output mới
+    if os.path.exists(os.path.join(OUTPUT_FOLDER, filename)):
         return send_from_directory(OUTPUT_FOLDER, filename)
-    except Exception as e:
-        print(f"Error serving output file: {str(e)}")
-        return str(e), 500
+    
+    # Nếu không tìm thấy, thử thư mục output cũ
+    old_output_folder = os.path.join(os.getcwd(), 'output')
+    if os.path.exists(os.path.join(old_output_folder, filename)):
+        return send_from_directory(old_output_folder, filename)
+        
+    # Thử thư mục Render cụ thể
+    render_output_folder = '/opt/render/project/src/output'
+    if os.path.exists(os.path.join(render_output_folder, filename)):
+        return send_from_directory(render_output_folder, filename)
+    
+    # Nếu không tìm thấy ở đâu cả
+    return jsonify({'error': 'File not found'}), 404
 
 @app.route('/api/phanmengoc/<path:filename>')
 def serve_phanmengoc(filename):
-    print(f"Serving file from phanmengoc: {filename}")
-    
-    # Chú ý: Funny.js với chữ F viết hoa, nhưng funny.js với chữ f viết thường
-    # Đảm bảo xử lý cả 2 trường hợp
-    if filename.lower() == 'funny.js':
-        try:
-            # Tìm kiếm file funny.js không phân biệt hoa thường
-            for f in os.listdir(PHANMENGOC_FOLDER):
-                if f.lower() == 'funny.js':
-                    print(f"Found file: {f}")
-                    return send_from_directory(PHANMENGOC_FOLDER, f)
-            
-            # Nếu không tìm thấy, trả về file funny.js đã tạo
-            print(f"Using default funny.js")
-            return send_from_directory(PHANMENGOC_FOLDER, 'funny.js')
-        except Exception as e:
-            print(f"Error serving funny.js: {str(e)}")
-            return str(e), 500
-    
-    # Trường hợp các file khác
-    try:
-        if os.path.exists(os.path.join(PHANMENGOC_FOLDER, filename)):
-            return send_from_directory(PHANMENGOC_FOLDER, filename)
-        else:
-            # Log lỗi khi không tìm thấy file
-            print(f"File not found: {os.path.join(PHANMENGOC_FOLDER, filename)}")
-            subfolder_path = os.path.dirname(os.path.join(PHANMENGOC_FOLDER, filename))
-            if os.path.exists(subfolder_path):
-                print(f"Subfolder exists, listing files: {os.listdir(subfolder_path)}")
-            return f"File not found: {filename}", 404
-    except Exception as e:
-        print(f"Error serving file {filename}: {str(e)}")
-        return str(e), 500
+    """
+    Serve phanmengoc resources
+    """
+    return send_from_directory(PHANMENGOC_FOLDER, filename)
 
 @app.route('/api/projects', methods=['GET'])
 def get_projects():
@@ -929,72 +804,3 @@ def check_file():
             'error': str(e)
         }), 500
 
-# Phục vụ file Funny.js đặc biệt (với chữ F viết hoa)
-@app.route('/api/phanmengoc/Funny.js')
-def serve_funny_js():
-    print("Serving Funny.js (uppercase F)")
-    try:
-        # Trả về file funny.js từ thư mục phanmengoc
-        return send_from_directory(PHANMENGOC_FOLDER, 'funny.js')
-    except Exception as e:
-        print(f"Error serving Funny.js: {str(e)}")
-        return str(e), 500
-
-# Hàm kiểm tra tất cả các file và thư mục
-@app.route('/api/phanmengoc/checkfiles')
-def check_phanmengoc_files():
-    result = {
-        'phanmengoc_exists': os.path.exists(PHANMENGOC_FOLDER),
-        'phanmengoc_path': PHANMENGOC_FOLDER,
-        'current_dir': os.getcwd(),
-        'files': []
-    }
-    
-    if os.path.exists(PHANMENGOC_FOLDER):
-        for root, dirs, files in os.walk(PHANMENGOC_FOLDER):
-            for file in files:
-                file_path = os.path.join(root, file)
-                relative_path = os.path.relpath(file_path, PHANMENGOC_FOLDER)
-                result['files'].append({
-                    'path': relative_path,
-                    'size': os.path.getsize(file_path)
-                })
-    
-    return jsonify(result)
-
-# Xem nội dung file HTML
-@app.route('/api/viewhtml/<path:filename>')
-def view_html_content(filename):
-    # Đường dẫn đến file trong thư mục output
-    file_path = os.path.join(OUTPUT_FOLDER, filename)
-    
-    try:
-        # Kiểm tra xem file có tồn tại không
-        if not os.path.exists(file_path):
-            print(f"File not found: {file_path}")
-            return jsonify({
-                'error': 'File not found',
-                'path': file_path,
-                'exists': False
-            }), 404
-        
-        # Đọc nội dung file HTML
-        with open(file_path, 'r', encoding='utf-8') as f:
-            content = f.read()
-        
-        # Trả về thông tin chi tiết về file
-        return jsonify({
-            'filename': filename,
-            'path': file_path,
-            'size': os.path.getsize(file_path),
-            'content': content,
-            'has_funny_js': 'funny.js' in content.lower() or 'Funny.js' in content,
-            'has_webvr': 'webvr.js' in content.lower(),
-            'has_embedpano': 'embedpano' in content
-        })
-            
-    except Exception as e:
-        print(f"Error viewing HTML: {str(e)}")
-        return jsonify({
-            'error': str(e)
-        }), 500
