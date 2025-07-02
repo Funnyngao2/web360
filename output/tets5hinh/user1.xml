@@ -1,0 +1,175 @@
+<?xml version="1.0" ?>
+<krpano title="tets5hinh">
+	<version>Generated on 2025-06-27 18:42:09</version>
+	<include url="http://localhost:5000/api/phanmengoc/skin/vtourskin.xml"/>
+	<include url="http://localhost:5000/api/phanmengoc/skin/vtourskin_design_flat_light.xml"/>
+	<scene name="funny_250521_V1-PIN_1-6K" title="250521_V1-PIN_1-6K" onstart="" thumburl="panosuser/250521_V1-PIN_1-6K/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/250521_V1-PIN_1-6K/preview.jpg"/>
+		<image>
+			<cube url="panosuser/250521_V1-PIN_1-6K/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_250521_V1-PIN_2-6K" title="250521_V1-PIN_2-6K" onstart="" thumburl="panosuser/250521_V1-PIN_2-6K/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/250521_V1-PIN_2-6K/preview.jpg"/>
+		<image>
+			<cube url="panosuser/250521_V1-PIN_2-6K/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_250521_V1-PIN_15-6K" title="250521_V1-PIN_15-6K" onstart="" thumburl="panosuser/250521_V1-PIN_15-6K/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/250521_V1-PIN_15-6K/preview.jpg"/>
+		<image>
+			<cube url="panosuser/250521_V1-PIN_15-6K/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_250529_v1_PIN_16_6k" title="250529_v1_PIN_16_6k" onstart="" thumburl="panosuser/250529_v1_PIN_16_6k/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/250529_v1_PIN_16_6k/preview.jpg"/>
+		<image>
+			<cube url="panosuser/250529_v1_PIN_16_6k/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_250529_V1_PIN_20" title="250529_V1_PIN_20" onstart="" thumburl="panosuser/250529_V1_PIN_20/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/250529_V1_PIN_20/preview.jpg"/>
+		<image>
+			<cube url="panosuser/250529_V1_PIN_20/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_ASV_PRIVE_PIN_14-_v1" title="ASV_PRIVE_PIN_14-_v1" onstart="" thumburl="panosuser/ASV_PRIVE_PIN_14-_v1/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/ASV_PRIVE_PIN_14-_v1/preview.jpg"/>
+		<image>
+			<cube url="panosuser/ASV_PRIVE_PIN_14-_v1/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_ASV_PRIVE_PIN_18_SAPHIRE" title="ASV_PRIVE_PIN_18_SAPHIRE" onstart="" thumburl="panosuser/ASV_PRIVE_PIN_18_SAPHIRE/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/ASV_PRIVE_PIN_18_SAPHIRE/preview.jpg"/>
+		<image>
+			<cube url="panosuser/ASV_PRIVE_PIN_18_SAPHIRE/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_ASV_PRIVE_PIN7" title="ASV_PRIVE_PIN7" onstart="" thumburl="panosuser/ASV_PRIVE_PIN7/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/ASV_PRIVE_PIN7/preview.jpg"/>
+		<image>
+			<cube url="panosuser/ASV_PRIVE_PIN7/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_ASV_PRIVE_PIN8" title="ASV_PRIVE_PIN8" onstart="" thumburl="panosuser/ASV_PRIVE_PIN8/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/ASV_PRIVE_PIN8/preview.jpg"/>
+		<image>
+			<cube url="panosuser/ASV_PRIVE_PIN8/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_ASV_PRIVE_PIN10_V1" title="ASV_PRIVE_PIN10_V1" onstart="" thumburl="panosuser/ASV_PRIVE_PIN10_V1/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/ASV_PRIVE_PIN10_V1/preview.jpg"/>
+		<image>
+			<cube url="panosuser/ASV_PRIVE_PIN10_V1/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_ASV_PRIVE_PIN11" title="ASV_PRIVE_PIN11" onstart="" thumburl="panosuser/ASV_PRIVE_PIN11/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/ASV_PRIVE_PIN11/preview.jpg"/>
+		<image>
+			<cube url="panosuser/ASV_PRIVE_PIN11/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_ASV_PRIVE_PIN12" title="ASV_PRIVE_PIN12" onstart="" thumburl="panosuser/ASV_PRIVE_PIN12/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/ASV_PRIVE_PIN12/preview.jpg"/>
+		<image>
+			<cube url="panosuser/ASV_PRIVE_PIN12/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_ASV_PRIVE_PIN13" title="ASV_PRIVE_PIN13" onstart="" thumburl="panosuser/ASV_PRIVE_PIN13/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/ASV_PRIVE_PIN13/preview.jpg"/>
+		<image>
+			<cube url="panosuser/ASV_PRIVE_PIN13/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_ASV_THE_PRIVE_PIN17" title="ASV_THE_PRIVE_PIN17" onstart="" thumburl="panosuser/ASV_THE_PRIVE_PIN17/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/ASV_THE_PRIVE_PIN17/preview.jpg"/>
+		<image>
+			<cube url="panosuser/ASV_THE_PRIVE_PIN17/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_Ban_sao_cua_ASV_PRIVE_PIN_09__VER1" title="Ban_sao_cua_ASV_PRIVE_PIN_09__VER1" onstart="" thumburl="panosuser/Ban_sao_cua_ASV_PRIVE_PIN_09__VER1/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/Ban_sao_cua_ASV_PRIVE_PIN_09__VER1/preview.jpg"/>
+		<image>
+			<cube url="panosuser/Ban_sao_cua_ASV_PRIVE_PIN_09__VER1/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_Ban_sao_cua_ASV_PRIVE_PIN_19_SANH_THANG_SAPPHIRE_VER1" title="Ban_sao_cua_ASV_PRIVE_PIN_19_SANH_THANG_SAPPHIRE_VER1" onstart="" thumburl="panosuser/Ban_sao_cua_ASV_PRIVE_PIN_19_SANH_THANG_SAPPHIRE_VER1/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/Ban_sao_cua_ASV_PRIVE_PIN_19_SANH_THANG_SAPPHIRE_VER1/preview.jpg"/>
+		<image>
+			<cube url="panosuser/Ban_sao_cua_ASV_PRIVE_PIN_19_SANH_THANG_SAPPHIRE_VER1/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_Ban_sao_cua_ASV_PRIVE_PIN_21_RUBI_LOBBY" title="Ban_sao_cua_ASV_PRIVE_PIN_21_RUBI_LOBBY" onstart="" thumburl="panosuser/Ban_sao_cua_ASV_PRIVE_PIN_21_RUBI_LOBBY/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/Ban_sao_cua_ASV_PRIVE_PIN_21_RUBI_LOBBY/preview.jpg"/>
+		<image>
+			<cube url="panosuser/Ban_sao_cua_ASV_PRIVE_PIN_21_RUBI_LOBBY/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_Ban_sao_cua_ASV_PRIVE_PIN03_VER1" title="Ban_sao_cua_ASV_PRIVE_PIN03_VER1" onstart="" thumburl="panosuser/Ban_sao_cua_ASV_PRIVE_PIN03_VER1/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/Ban_sao_cua_ASV_PRIVE_PIN03_VER1/preview.jpg"/>
+		<image>
+			<cube url="panosuser/Ban_sao_cua_ASV_PRIVE_PIN03_VER1/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_Ban_sao_cua_ASV_PRIVE_PIN4_VER1" title="Ban_sao_cua_ASV_PRIVE_PIN4_VER1" onstart="" thumburl="panosuser/Ban_sao_cua_ASV_PRIVE_PIN4_VER1/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/Ban_sao_cua_ASV_PRIVE_PIN4_VER1/preview.jpg"/>
+		<image>
+			<cube url="panosuser/Ban_sao_cua_ASV_PRIVE_PIN4_VER1/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_Ban_sao_cua_ASV_PRIVE_PIN5" title="Ban_sao_cua_ASV_PRIVE_PIN5" onstart="" thumburl="panosuser/Ban_sao_cua_ASV_PRIVE_PIN5/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/Ban_sao_cua_ASV_PRIVE_PIN5/preview.jpg"/>
+		<image>
+			<cube url="panosuser/Ban_sao_cua_ASV_PRIVE_PIN5/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_Ban_sao_cua_ASV_PRIVE_PIN6" title="Ban_sao_cua_ASV_PRIVE_PIN6" onstart="" thumburl="panosuser/Ban_sao_cua_ASV_PRIVE_PIN6/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/Ban_sao_cua_ASV_PRIVE_PIN6/preview.jpg"/>
+		<image>
+			<cube url="panosuser/Ban_sao_cua_ASV_PRIVE_PIN6/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<!--scene tiếp theo-->
+</krpano>

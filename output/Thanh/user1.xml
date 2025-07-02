@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<krpano title="Thanh">
+	<version>Generated on 2025-06-27 18:36:03</version>
+	<include url="../../../phanmengoc/skin/vtourskin.xml"/>
+	<include url="../../../phanmengoc/skin/vtourskin_design_flat_light.xml"/>
+	<scene name="funny_250521_V1-PIN_1-6K" title="250521_V1-PIN_1-6K" onstart="" thumburl="panosuser/250521_V1-PIN_1-6K/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/250521_V1-PIN_1-6K/preview.jpg"/>
+		<image>
+			<cube url="panosuser/250521_V1-PIN_1-6K/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_250521_V1-PIN_2-6K" title="250521_V1-PIN_2-6K" onstart="" thumburl="panosuser/250521_V1-PIN_2-6K/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/250521_V1-PIN_2-6K/preview.jpg"/>
+		<image>
+			<cube url="panosuser/250521_V1-PIN_2-6K/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_250521_V1-PIN_15-6K" title="250521_V1-PIN_15-6K" onstart="" thumburl="panosuser/250521_V1-PIN_15-6K/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/250521_V1-PIN_15-6K/preview.jpg"/>
+		<image>
+			<cube url="panosuser/250521_V1-PIN_15-6K/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<!--scene tiếp theo-->
+</krpano>

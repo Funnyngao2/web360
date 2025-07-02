@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<krpano title="vip">
+	<version>Generated on 2025-06-27 18:54:32</version>
+	<include url="/api/phanmengoc/skin/vtourskin.xml"/>
+	<include url="/api/phanmengoc/skin/vtourskin_design_flat_light.xml"/>
+	<scene name="funny_ASV_PRIVE_PIN12" title="ASV_PRIVE_PIN12" onstart="" thumburl="panosuser/ASV_PRIVE_PIN12/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/ASV_PRIVE_PIN12/preview.jpg"/>
+		<image>
+			<cube url="panosuser/ASV_PRIVE_PIN12/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_ASV_PRIVE_PIN13" title="ASV_PRIVE_PIN13" onstart="" thumburl="panosuser/ASV_PRIVE_PIN13/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/ASV_PRIVE_PIN13/preview.jpg"/>
+		<image>
+			<cube url="panosuser/ASV_PRIVE_PIN13/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<scene name="funny_ASV_THE_PRIVE_PIN17" title="ASV_THE_PRIVE_PIN17" onstart="" thumburl="panosuser/ASV_THE_PRIVE_PIN17/thumb.jpg" lat="" lng="" alt="" heading="">
+		<control bouncinglimits="calc:image.cube ? true : false"/>
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto"/>
+		<preview url="panosuser/ASV_THE_PRIVE_PIN17/preview.jpg"/>
+		<image>
+			<cube url="panosuser/ASV_THE_PRIVE_PIN17/pano_%s.jpg"/>
+		</image>
+	</scene>
+	<!--scene tiếp theo-->
+</krpano>
