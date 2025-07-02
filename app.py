@@ -24,20 +24,30 @@ app = Flask(__name__)
 # Cấu hình CORS đơn giản - chỉ để tại một nơi duy nhất
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+# Kiểm tra môi trường Render
+is_render = os.environ.get("RENDER") or "render" in os.environ.get("RENDER_SERVICE_ID", "") or "render" in os.environ.get("RENDER_INSTANCE_ID", "")
+
 # Configure folders based on environment
-if os.environ.get("RAILWAY_ENVIRONMENT"):
-    # On Railway, use the /tmp directory for uploads and output
+if os.environ.get("RAILWAY_ENVIRONMENT") or is_render:
+    # Thư mục gốc trên Render
+    project_root = os.path.dirname(os.path.abspath(__file__))
+    
+    # Trên Railway hoặc Render, sử dụng thư mục /tmp để lưu trữ tạm
     UPLOAD_FOLDER = os.path.join('/tmp', 'uploads')
     OUTPUT_FOLDER = os.path.join('/tmp', 'output')
-    WEBTOOLS_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    # Create a static folder for phanmengoc resources
-    PHANMENGOC_FOLDER = os.path.join('/tmp', 'phanmengoc')
     
-    # Copy phanmengoc resources to tmp folder if they exist in the app
-    src_phanmengoc = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'phanmengoc')
-    if os.path.exists(src_phanmengoc):
-        if not os.path.exists(PHANMENGOC_FOLDER):
-            shutil.copytree(src_phanmengoc, PHANMENGOC_FOLDER)
+    # Thư mục phanmengoc nằm cùng cấp với app.py
+    PHANMENGOC_FOLDER = os.path.join(project_root, 'phanmengoc')
+    WEBTOOLS_ROOT = os.path.dirname(project_root)
+    
+    print(f"Running on cloud platform. PHANMENGOC_FOLDER={PHANMENGOC_FOLDER}")
+    
+    # Đảm bảo thư mục phanmengoc tồn tại
+    if not os.path.exists(PHANMENGOC_FOLDER):
+        print(f"phanmengoc folder not found at {PHANMENGOC_FOLDER}")
+        # Tạo thư mục nếu không tồn tại
+        os.makedirs(PHANMENGOC_FOLDER, exist_ok=True)
+        print(f"Created empty phanmengoc folder at {PHANMENGOC_FOLDER}")
 else:
     # Local development
     UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
@@ -45,6 +55,7 @@ else:
     WEBTOOLS_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     PHANMENGOC_FOLDER = os.path.join(WEBTOOLS_ROOT, "phanmengoc")
 
+# Tạo thư mục nếu chưa tồn tại
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
