@@ -240,7 +240,7 @@ def convert_spherical_to_cube_optimized(input_path, output_folder, size=CUBE_SIZ
                     out_file = os.path.join(output_folder, f"{face}.jpg")
                     cv2.imwrite(out_file, face_img, [cv2.IMWRITE_JPEG_QUALITY, 90])
                     faces_images[face] = face_img
-                    print(f"✅ Saved face {face}")
+                    print(f"✅ Save1d face {face}")
                 except Exception as e:
                     print(f"❌ Error processing face {face}: {str(e)}")
         else:
